@@ -1,10 +1,13 @@
 import { initializeApp } from "firebase/app"
+
 import {
 	getAuth,
 	signInWithRedirect,
 	signInWithPopup,
 	GoogleAuthProvider,
+	createUserWithEmailAndPassword,
 } from "firebase/auth"
+
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
 
 const firebaseConfig = {
@@ -18,7 +21,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig)
 
-const provider = new GoogleAuthProvider()
+const provider = new GoogleAuthProvider() //there can be multiple providers hence instantiated as new class
 
 provider.setCustomParameters({
 	prompt: "select_account",
@@ -30,7 +33,12 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
 //database
 export const db = getFirestore()
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+	userAuth,
+	additionalInfo = {}
+) => {
+	if (!userAuth) return
+
 	const userDocRef = doc(db, "users", userAuth.uid) //if user does not exist, google still returns an object with an id and a path that points to where google wants us to create the object
 	console.log(userDocRef)
 
@@ -46,6 +54,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 				displayName,
 				email,
 				createdAt,
+                ...additionalInfo
 			})
 		} catch (error) {
 			console.log("error creating the user", error.message)
@@ -53,4 +62,10 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 	}
 
 	return userDocRef
+}
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+	if (!email || !password) return
+
+	return await createUserWithEmailAndPassword(auth, email, password)
 }
