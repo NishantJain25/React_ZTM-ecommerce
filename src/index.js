@@ -1,14 +1,18 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import "./index.scss"
+
 import App from "./App"
+import { UserProvider } from "./contexts/user.context"
+import "./index.scss"
 import reportWebVitals from "./reportWebVitals"
+
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
 	RouterProvider,
 	Route,
 } from "react-router-dom"
+
 import Home from "./routes/home/home.component.jsx"
 import Authentication from "./routes/authentication/authentication.component.jsx"
 
@@ -16,6 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"))
 const Shop = () => {
 	return <h1>I am the Shop Page</h1>
 }
+
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
@@ -27,7 +32,9 @@ const router = createBrowserRouter(
 )
 root.render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<UserProvider>
+			<RouterProvider router={router} />
+		</UserProvider>
 	</React.StrictMode>
 )
 
