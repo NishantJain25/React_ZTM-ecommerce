@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client"
 
 import App from "./App"
 import { UserProvider } from "./contexts/user.context"
+import { ProductsProvider } from "./contexts/products.context"
+import { CartProvider } from "./contexts/cart.context"
 import "./index.scss"
 import reportWebVitals from "./reportWebVitals"
 
@@ -15,11 +17,9 @@ import {
 
 import Home from "./routes/home/home.component.jsx"
 import Authentication from "./routes/authentication/authentication.component.jsx"
+import Shop from "./routes/shop/shop.component.jsx"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
-const Shop = () => {
-	return <h1>I am the Shop Page</h1>
-}
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -33,7 +33,11 @@ const router = createBrowserRouter(
 root.render(
 	<React.StrictMode>
 		<UserProvider>
-			<RouterProvider router={router} />
+			<ProductsProvider>
+				<CartProvider>
+					<RouterProvider router={router} />
+				</CartProvider>
+			</ProductsProvider>
 		</UserProvider>
 	</React.StrictMode>
 )

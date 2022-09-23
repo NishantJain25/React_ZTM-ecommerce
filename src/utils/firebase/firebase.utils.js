@@ -42,10 +42,8 @@ export const createUserDocumentFromAuth = async (
 	if (!userAuth) return
 
 	const userDocRef = doc(db, "users", userAuth.uid) //if user does not exist, google still returns an object with an id and a path that points to where google wants us to create the object
-	console.log(userDocRef)
 
 	const userSnapshot = await getDoc(userDocRef) //allows us to check if the instance exists in the database
-	console.log(userSnapshot.exists())
 
 	if (!userSnapshot.exists()) {
 		const { displayName, email } = userAuth
