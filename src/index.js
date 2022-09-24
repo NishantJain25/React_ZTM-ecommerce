@@ -18,6 +18,7 @@ import {
 import Home from "./routes/home/home.component.jsx"
 import Authentication from "./routes/authentication/authentication.component.jsx"
 import Shop from "./routes/shop/shop.component.jsx"
+import Checkout from "./routes/checkout/checkout.component.jsx"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
 			<Route index element={<Home />} />
 			<Route path="shop" element={<Shop />} />
 			<Route path="auth" element={<Authentication />} />
+			<Route path="checkout" element={<Checkout />} />
 		</Route>
 	)
 )
