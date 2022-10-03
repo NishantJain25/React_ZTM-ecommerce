@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client"
 
 import App from "./App"
 import { UserProvider } from "./contexts/user.context"
-import { ProductsProvider } from "./contexts/products.context"
+import { CategoriesProvider } from "./contexts/categories.context"
 import { CartProvider } from "./contexts/cart.context"
 import "./index.scss"
 import reportWebVitals from "./reportWebVitals"
@@ -26,7 +26,7 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			<Route index element={<Home />} />
-			<Route path="shop" element={<Shop />} />
+			<Route path="shop/*" element={<Shop />} />
 			<Route path="auth" element={<Authentication />} />
 			<Route path="checkout" element={<Checkout />} />
 		</Route>
@@ -35,11 +35,11 @@ const router = createBrowserRouter(
 root.render(
 	<React.StrictMode>
 		<UserProvider>
-			<ProductsProvider>
+			<CategoriesProvider>
 				<CartProvider>
 					<RouterProvider router={router} />
 				</CartProvider>
-			</ProductsProvider>
+			</CategoriesProvider>
 		</UserProvider>
 	</React.StrictMode>
 )
